@@ -68,6 +68,19 @@ diabetes_meds_prescribed_mappings = {
 
 special_cases = ['max_glu_serum', 'A1Cresult'] #if it's None, set it equal to 0, otherwise remove the > sign and leave the number
 
+max_glu_mappings = {
+	'None': 0,
+	'Norm': 1,
+	'>200': 2,
+	'>300': 3
+}
+
+A1Cresult_mappings = {
+	'None': 0,
+	'Norm': 1,
+	'>7': 2,
+	'>8': 3
+}
 
 # def process_first_line(line):
 # 	'''
@@ -89,14 +102,9 @@ def process_line(line):
 	line[1] = gender_mappings[line[1]] #gender
 	line[2] = age_mappings[line[2]] #age
 
-	if line[17] == 'None':
-		line[17] = 0
-	else:
-		line[17] = line[17][1:]
-	if line[18] == 'None':
-		line[18] = 0
-	else:
-		line[18] = line[18][1:]
+	line[17] = max_glu_mappings[line[17]]
+	line[18] = A1Cresult_mappings[line[18]]
+	
 	for i in range(19, 42):
 		line[i] = medications_mappings[line[i]]
 
