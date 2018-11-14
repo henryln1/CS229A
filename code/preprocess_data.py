@@ -23,9 +23,8 @@ race_mappings = {
 }
 
 gender_mappings = {
-	'Unknown/Invalid': 0,
-	'Female': 1,
-	'Male': 2
+	'Female': 0,
+	'Male': 1
 }
 
 age_mappings = {
@@ -99,12 +98,15 @@ A1Cresult_mappings = {
 def process_line(line):
 	#line is a list of every element in a row of the csv file
 	line[0] = race_mappings[line[0]] #race
-	line[1] = gender_mappings[line[1]] #gender
+	if line[1] in gender_mappings:
+		line[1] = gender_mappings[line[1]] #gender
+	else:
+		return None
 	line[2] = age_mappings[line[2]] #age
 
 	line[17] = max_glu_mappings[line[17]]
 	line[18] = A1Cresult_mappings[line[18]]
-	
+
 	for i in range(19, 42):
 		line[i] = medications_mappings[line[i]]
 
@@ -138,6 +140,8 @@ def process_csv_file(in_file_name, out_file_name):
 					line_count += 1
 					continue
 				cleaned_line = process_line(line)
+				if not cleaned_line:
+					continue
 				writer.writerow(cleaned_line)
 				line_count += 1
 				if line_count % 1000 == 0:
