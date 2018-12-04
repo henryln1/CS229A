@@ -42,11 +42,10 @@ m = size(X, 1);                                      % Some useful variables
 n = size(X, 2);
 all_theta = zeros(num_labels, n);                % You need to return the following variable correctly
 
-% ====================== YOUR CODE HERE ======================
 initial_theta = zeros(n, 1); 
 options = optimset('GradObj', 'on', 'MaxIter', 250);
 [all_theta] = fmincg (@(t)(lrCostFunction(t, X, (y == c), lambda)),initial_theta, options);
-% =============================================================
+
 end
 
 function [p, probs] = predict(all_theta, X)
