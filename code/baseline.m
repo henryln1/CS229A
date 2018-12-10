@@ -1,5 +1,5 @@
 
-data = csvread('cleaned_continuous_diabetic_data.csv',1,0);
+data = csvread('../dataset_diabetes/cleaned_continuous_diabetic_data.csv',1,0);
 size(data,1)
 m_train = int32(size(data,1)*0.6)
 m_val = m_train + int32((size(data,1)*0.2))
